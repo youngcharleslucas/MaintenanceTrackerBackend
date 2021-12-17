@@ -1,4 +1,3 @@
-from typing_extensions import Required
 from django.core import validators
 from django.db import models
 from django.contrib.auth import get_user_model

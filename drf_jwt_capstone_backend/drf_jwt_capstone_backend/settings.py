@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'authentication.apps.AuthenticationConfig',
     'corsheaders',
     'vehicle.apps.VehicleConfig',
+    'operator_vehicle.apps.OperatorVehicleConfig',
 ]
 
 MIDDLEWARE = [

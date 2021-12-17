@@ -11,7 +11,7 @@ User = get_user_model()
 
 class VehicleList(APIView):
 
-    permission_classes = [AllowAny]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
         vehicle = Vehicle.objects.all()

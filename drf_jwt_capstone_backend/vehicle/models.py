@@ -18,6 +18,7 @@ class Vehicle(models.Model):
         ('4x4', 'Four Wheel Drive')
     ]
     drive_type = models.CharField(max_length=3, choices=DRIVE_TYPE_CHOICES, default='FWD')
+    # year = models.DateField(Required=False)
     # drivetrain = models.Field.choices(max_length=20)
     # cylinders = models.CharField(max_length=20)
     # engine_size_cc = models.CharField(max_length=20)

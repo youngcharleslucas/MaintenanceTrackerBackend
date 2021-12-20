@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'run_miles.apps.RunMilesConfig',
     'maintenance_log.apps.MaintenanceLogConfig',
     'maintenance_item.apps.MaintenanceItemConfig',
+    'vehicle_main_part.apps.VehicleMainPartConfig',
 ]
 
 MIDDLEWARE = [

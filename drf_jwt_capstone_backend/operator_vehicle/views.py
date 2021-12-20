@@ -3,7 +3,6 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
 from rest_framework.decorators import api_view, permission_classes
-from drf_jwt_capstone_backend import vehicle
 from vehicle.models import Vehicle
 # vehicle.serializers import is importing from a different folder outside of the folder this views.py is in. I thought I had to use ..vehicle.serializer to back out of this folder.
 from vehicle.serializers import VehicleSerializer
@@ -36,10 +35,11 @@ def get_operator_vehicle(request):
     serializer = VehicleSerializer(my_ve, many=True)
     return Response(serializer.data)
 
+# Method to get operators from vehicle ID. Not working yet
 @api_view(['GET'])
 @permission_classes([AllowAny])
 def get_vehicle_operator(request):
-    vehicle_operator = User.objects.filter(operatorvehicle__vehicle__id=request.id)
+    vehicle_operator = User.objects.filter(operatorvehicle__vehicle__id=request.data.id)
     result= [item for item in vehicle_operator]
-    serializer = RegistrationSerializer(vehicle_operator, manny=True)
+    serializer = RegistrationSerializer(vehicle_operator, many=True)
     return Response(serializer.data)

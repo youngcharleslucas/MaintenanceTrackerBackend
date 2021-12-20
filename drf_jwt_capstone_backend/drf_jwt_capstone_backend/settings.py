@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'corsheaders',
     'vehicle.apps.VehicleConfig',
     'operator_vehicle.apps.OperatorVehicleConfig',
+    'run_miles.apps.RunMilesConfig',
 ]
 
 MIDDLEWARE = [

@@ -15,3 +15,4 @@ def get_all_maintenance_items(request):
     maintenance_item = MaintenanceItem.objects.all()
     serializer = MaintenanceItemSerializer(maintenance_item, many=True)
     return Response (serializer.data)
+

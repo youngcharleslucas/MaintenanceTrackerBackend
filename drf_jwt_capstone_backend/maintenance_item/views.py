@@ -10,9 +10,15 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 @api_view(['GET'])
-@permission_classes([AllowAny])
+@permission_classes([IsAuthenticated])
 def get_all_maintenance_items(request):
     maintenance_item = MaintenanceItem.objects.all()
     serializer = MaintenanceItemSerializer(maintenance_item, many=True)
     return Response (serializer.data)
 
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def get_all_maintenance_items(request):
+#     maintenance_item = MaintenanceItem.objects.all().get(vehicle_type__id)
+#     serializer = MaintenanceItemSerializer(maintenance_item, many=True)
+#     return Response (serializer.data)

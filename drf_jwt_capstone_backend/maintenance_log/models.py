@@ -10,3 +10,7 @@ class MaintenanceLog(models.Model):
     log_miles = models.IntegerField()
     log_description = models.CharField(max_length=300)
     log_date = models.DateField()
+    log_title = models.CharField(max_length=100)
+
+    def __str__(self) -> str:
+        return self.log_title

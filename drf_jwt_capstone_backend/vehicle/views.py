@@ -30,12 +30,12 @@ def create_vehicle(request):
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-@api_view(['POST'])
-@permission_classes([IsAuthenticated])
-def user_vehicles(request):
-    if request.method == 'POST':
-        serializer = VehicleSerializer(data=request.data)
-        serializer.save()
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def user_vehicles(request):
+#     if request.method == 'POST':
+#         serializer = VehicleSerializer(data=request.data)
+#         serializer.save()
 
 
 

@@ -43,7 +43,8 @@ def get_vehicle_operator(request):
     result= [item for item in vehicle_operator]
     serializer = RegistrationSerializer(vehicle_operator, many=True)
     return Response(serializer.data)
-
+    
+# Add vehicle to operator is not working, operator_id cannot be null
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def add_vehicle_to_user(request):

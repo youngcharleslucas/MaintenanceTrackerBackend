@@ -12,7 +12,7 @@ User = get_user_model()
 
 
 @api_view(['GET'])
-@permission_classes([IsAuthenticated])
+@permission_classes([AllowAny])
 def get_all_vehicles(request):
     vehicle = Vehicle.objects.all()
     serializer = VehicleSerializer(vehicle, many=True)

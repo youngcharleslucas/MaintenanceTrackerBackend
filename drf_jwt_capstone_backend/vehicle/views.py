@@ -29,22 +29,26 @@ def create_vehicle(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# # Get single vehicle with pk
+# Get single vehicle with id
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_vehicle(request, id):
+    # The id variable was added in urls.py, at the end of the path as <str:id>
     vehicle = Vehicle.objects.filter(id=id)
     serializer = VehicleSerializer(vehicle, many=True)
     return Response(serializer.data)
 
-# Get single vehicle with pk
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def get_vehicle(request, id):
-#     try: 
-#         return Vehicle.objects.get(id=id)
-#     except Vehicle.DoesNotExist:
-#         raise Http404
+# Update miles on vehicle with id
+@api_view(['PUT'])
+@permission_classes([IsAuthenticated])
+def update_miles(request, id):
+    # There was an error when filtering without .first(). 'QuerySet' object has no attribute '_meta'. This was because the queryset was returning  a list of records instead of an instance. 
+    miles = Vehicle.objects.filter(id=id).first()
+    serializer = VehicleSerializer(miles, data=request.data)
+    if serializer.is_valid():
+        serializer.save()
+        return Response(serializer.data)
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 # @api_view(['POST'])

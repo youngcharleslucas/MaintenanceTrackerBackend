@@ -29,6 +29,23 @@ def create_vehicle(request):
         return Response(serializer.data, status=status.HTTP_201_CREATED)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# # Get single vehicle with pk
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_vehicle(request, id):
+    vehicle = Vehicle.objects.filter(id=id)
+    serializer = VehicleSerializer(vehicle, many=True)
+    return Response(serializer.data)
+
+# Get single vehicle with pk
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def get_vehicle(request, id):
+#     try: 
+#         return Vehicle.objects.get(id=id)
+#     except Vehicle.DoesNotExist:
+#         raise Http404
+
 
 # @api_view(['POST'])
 # @permission_classes([IsAuthenticated])

@@ -25,6 +25,7 @@ class Vehicle(models.Model):
     ]
     drive_type = models.CharField(max_length=3, choices=DRIVE_TYPE_CHOICES, default='FWD')
     vehicle_type = models.ForeignKey(VehicleType, null=True, on_delete=models.SET_NULL)
+    miles_current = models.IntegerField()
     # year = models.DateField(blank=True)
     # drivetrain = models.Field.choices(max_length=20)
     # cylinders = models.CharField(max_length=20)

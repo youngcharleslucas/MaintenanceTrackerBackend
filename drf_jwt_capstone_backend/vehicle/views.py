@@ -35,6 +35,7 @@ def create_vehicle(request):
 def get_vehicle(request, id):
     # The id variable was added in urls.py, at the end of the path as <str:id>
     vehicle = Vehicle.objects.filter(id=id)
+    # I forgot many=True, the error said 'QuerySet object has no attribute 'vin' and serializer field might be named incorrectly.
     serializer = VehicleSerializer(vehicle, many=True)
     return Response(serializer.data)
 

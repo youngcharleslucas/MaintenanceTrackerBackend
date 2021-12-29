@@ -10,6 +10,7 @@ class MaintenanceLog(models.Model):
     log_miles = models.IntegerField()
     log_note = models.CharField(max_length=300)
     log_date = models.DateField()
+    # complete will be True after the maintenance is performed next time. Leaving complete False keeps that Alert active. When the maintenance is due, all False complete maintenance items will display as alerts. Maintenance Log maintains record of when it was last performed.
     complete = models.BooleanField(default=False)
 
     def __int__(self) -> int:

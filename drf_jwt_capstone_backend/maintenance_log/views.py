@@ -28,12 +28,21 @@ def get_all_maintenance_log (request):
 #     serializer = MaintenanceItemSerializer(maintenance_log, many=True)
 #     return Response(serializer.data)
 
-# get the maintenance logs for vehicle id
+# # get the maintenance logs for vehicle id
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_log_for_vehicle (request):
-    result = [item for item in request.data]
-    # request.data returns a dictionary (the submitted body in the request is a dictionary). Keys in the data dictionary are accessed by ['key_name'], not .key_name
-    maintenance_logs = MaintenanceLog.objects.filter(vehicle__id=request.data['id'])
+def get_log_for_vehicle (request, id):
+    maintenance_logs = MaintenanceLog.objects.filter(vehicle__id= id)
     serializer = MaintenanceLogSerializer(maintenance_logs, many=True)
     return Response(serializer.data)
+
+# get the maintenance logs for vehicle id, AllowAny test of the above because React is giving 401 error, Postman worked with above though
+# THIS DOES NOT WORK WITH AXIOS!!!!!!!!!! Axios cannot send GET requests information through the body!!!!! You must pass it through the HTTP <str:Value Here>
+# @api_view(['GET'])
+# @permission_classes([AllowAny])
+# def get_log_for_vehicle (request):
+#     result = [item for item in request.data]
+#     # request.data returns a dictionary (the submitted body in the request is a dictionary). Keys in the data dictionary are accessed by ['key_name'], not .key_name
+#     maintenance_logs = MaintenanceLog.objects.filter(vehicle__id=request.data['id'])
+#     serializer = MaintenanceLogSerializer(maintenance_logs, many=True)
+#     return Response(serializer.data)

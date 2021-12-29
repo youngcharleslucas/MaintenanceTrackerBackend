@@ -1,4 +1,5 @@
 from rest_framework import status
+from rest_framework.serializers import Serializer
 from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework.permissions import IsAuthenticated, AllowAny
@@ -36,7 +37,7 @@ def get_log_for_vehicle (request, id):
     serializer = MaintenanceLogSerializer(maintenance_logs, many=True)
     return Response(serializer.data)
 
-# # get the maintenance items for vehicle id
+# get the maintenance items for vehicle id
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_maintenance_item_for_vehicle (request, id):
@@ -44,6 +45,15 @@ def get_maintenance_item_for_vehicle (request, id):
     maintenance_items = MaintenanceItem.objects.filter(maintenancelog__vehicle__id = id)
     serializer = MaintenanceItemSerializer(maintenance_items, many=True)
     return Response(serializer.data)
+
+# get the maintenance item through log id
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_maintenance_item_by_log (request, id):
+    maintenance_items = MaintenanceItem.objects.filter(maintenancelog__id= id)
+    serializer = MaintenanceItemSerializer(maintenance_items, many=True)
+    return Response(serializer.data)
+
 
 
 # get the maintenance logs for vehicle id, AllowAny test of the above because React is giving 401 error, Postman worked with above though

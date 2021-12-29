@@ -3,5 +3,6 @@ from maintenance_log import views
 
 urlpatterns = [
     path('all/', views.get_all_maintenance_log),
-    path('vehicle/<str:id>/', views.get_log_for_vehicle)
+    path('vehicle/log/<str:id>/', views.get_log_for_vehicle),
+    path('vehicle/maintenance_item/<str:id>/', views.get_maintenance_item_for_vehicle)
 ]

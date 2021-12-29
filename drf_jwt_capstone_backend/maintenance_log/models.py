@@ -4,13 +4,13 @@ from django.contrib.auth import get_user_model
 User = get_user_model()
 
 class MaintenanceLog(models.Model):
-    # MaintenanceID
+    maintenance = models.ForeignKey('maintenance_item.MaintenanceItem', on_delete=models.CASCADE)
     operator = models.ForeignKey(User, on_delete=models.CASCADE)
     vehicle = models.ForeignKey('vehicle.Vehicle', on_delete=models.CASCADE)
     log_miles = models.IntegerField()
-    log_description = models.CharField(max_length=300)
+    log_note = models.CharField(max_length=300)
     log_date = models.DateField()
-    log_title = models.CharField(max_length=100)
+    complete = models.BooleanField(default=False)
 
-    def __str__(self) -> str:
-        return self.log_title
+    def __int__(self) -> int:
+        return self.maintenance

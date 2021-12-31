@@ -55,13 +55,39 @@ def get_maintenance_item_by_log (request, id):
     return Response(serializer.data)
 
 # Get all maintenance logs that are not complete for vehicle id. These will be the alerts. The log miles for when the maintenance was performed sets the start for when the maintenance will be due next.
+# @api_view(['GET'])
+# @permission_classes([IsAuthenticated])
+# def get_incomplete_logs (request, id):
+#     vehicle_logs = MaintenanceLog.objects.filter(vehicle__id=id)
+#     incomplete_logs = vehicle_logs.filter(complete = False)
+#     serializer = MaintenanceLogSerializer(incomplete_logs, many=True)
+#     return Response(serializer.data)
+
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_incomplete_logs (request, id):
     vehicle_logs = MaintenanceLog.objects.filter(vehicle__id=id)
-    incomplete_logs = vehicle_logs.filter(complete = False)
+    incomplete_logs = vehicle_logs.exclude(complete = True)
     serializer = MaintenanceLogSerializer(incomplete_logs, many=True)
     return Response(serializer.data)
+
+
+
+# GET (not PUT) complete = True for maintenance log by maintenance log id
+
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_update_complete_true(request, id):
+    completed = MaintenanceLog.objects.get(id=id)
+    # Updates just the key "complete" to True
+    completed.complete = True
+    completed.save()
+    # Only changed one key, so eliminated many=True. The error was 'MaintenaceLog' object is not iterable, 500
+    serializer = MaintenanceLogSerializer(completed)
+    return Response(serializer.data)
+    
+
+
 
 
 

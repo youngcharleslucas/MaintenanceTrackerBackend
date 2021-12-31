@@ -54,6 +54,15 @@ def get_maintenance_item_by_log (request, id):
     serializer = MaintenanceItemSerializer(maintenance_items, many=True)
     return Response(serializer.data)
 
+# Get all maintenance logs that are not complete for vehicle id. These will be the alerts. The log miles for when the maintenance was performed sets the start for when the maintenance will be due next.
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_incomplete_logs (request, id):
+    vehicle_logs = MaintenanceLog.objects.filter(vehicle__id=id)
+    incomplete_logs = vehicle_logs.filter(complete = False)
+    serializer = MaintenanceLogSerializer(incomplete_logs, many=True)
+    return Response(serializer.data)
+
 
 
 # get the maintenance logs for vehicle id, AllowAny test of the above because React is giving 401 error, Postman worked with above though

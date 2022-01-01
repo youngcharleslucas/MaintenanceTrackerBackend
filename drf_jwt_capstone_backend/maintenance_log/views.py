@@ -46,12 +46,12 @@ def get_maintenance_item_for_vehicle (request, id):
     serializer = MaintenanceItemSerializer(maintenance_items, many=True)
     return Response(serializer.data)
 
-# get the maintenance item through log id
+# get single maintenance log through log id
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
-def get_maintenance_item_by_log (request, id):
-    maintenance_items = MaintenanceItem.objects.filter(maintenancelog__id= id)
-    serializer = MaintenanceItemSerializer(maintenance_items, many=True)
+def get_maintenance_log (request, id):
+    maintenance_items = MaintenanceLog.objects.filter(id=id)
+    serializer = MaintenanceLogSerializer(maintenance_items, many=True)
     return Response(serializer.data)
 
 # Get all maintenance logs that are not complete for vehicle id. These will be the alerts. The log miles for when the maintenance was performed sets the start for when the maintenance will be due next.

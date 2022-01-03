@@ -8,7 +8,7 @@ class MaintenanceItem (models.Model):
     maintenance_miles = models.IntegerField(blank=True)
     maintenance_periodicity = models.CharField(max_length=20, blank=True)
     maintenance_description = models.CharField(max_length=300)
-    vehicle_type = models.ManyToManyField('vehicle.VehicleType')
+    vehicle_type = models.ForeignKey('vehicle.VehicleType', null=True, on_delete=models.SET_NULL)
     # vehicle_type = models.ForeignKey('vehicle.VehicleType', null=True, on_delete=models.SET_NULL)
 
 

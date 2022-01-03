@@ -86,6 +86,12 @@ def get_update_complete_true(request, id):
     serializer = MaintenanceLogSerializer(completed)
     return Response(serializer.data)
     
+# @api_view(['POST'])
+# @permission_classes([IsAuthenticated])
+# def post_new_log(request):
+#     serializer = MaintenanceLogSerializer(data=request.data)
+#     if serializer.is_valid()
+
 
 
 

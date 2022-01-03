@@ -51,6 +51,15 @@ def update_miles(request, id):
         return Response(serializer.data)
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+# Get vehicles that are not in the garage of id
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_nongarage_vehicle(request, id):
+    # The id variable was added in urls.py, at the end of the path as <str:id>
+    vehicles = Vehicle.objects.exclude(operatorvehicle__operator__id=id)
+    serializer = VehicleSerializer(vehicles, many=True)
+    return Response(serializer.data)
+
 
 # @api_view(['POST'])
 # @permission_classes([IsAuthenticated])

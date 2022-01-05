@@ -7,7 +7,7 @@ from rest_framework.decorators import api_view, permission_classes
 from maintenance_item.models import MaintenanceItem
 from maintenance_item.serializers import MaintenanceItemSerializer
 from .models import MaintenanceLog
-from .serializers import MaintenanceLogSerializer
+from .serializers import MaintenanceLogSerializer, MaintenanceLogNoDepthSerializer
 from django.contrib.auth import get_user_model
 
 User = get_user_model()
@@ -85,11 +85,12 @@ def get_update_complete_true(request, id):
     # Only changed one key, so eliminated many=True. The error was 'MaintenaceLog' object is not iterable, 500
     serializer = MaintenanceLogSerializer(completed)
     return Response(serializer.data)
-    
+
+# Create new log with MaintenanceLogNoDepthSerializer
 @api_view(['POST'])
 @permission_classes([IsAuthenticated])
 def post_new_log(request):
-    serializer = MaintenanceLogSerializer(data=request.data)
+    serializer = MaintenanceLogNoDepthSerializer(data=request.data)
     if serializer.is_valid():
         serializer.save()
         return Response(serializer.data, status=status.HTTP_201_CREATED)

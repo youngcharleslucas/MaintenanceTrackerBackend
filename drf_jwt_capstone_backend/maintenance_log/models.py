@@ -13,5 +13,10 @@ class MaintenanceLog(models.Model):
     # complete will be True after the maintenance is performed next time. Leaving complete False keeps that Alert active. When the maintenance is due, all False complete maintenance items will display as alerts. Maintenance Log maintains record of when it was last performed.
     complete = models.BooleanField(default=False)
 
-    def __int__(self) -> int:
-        return self.maintenance
+# Returns Maintenance Log (int)
+    # def __int__(self) -> int:
+    #     return self
+
+# Use dot notation to access foreign key values and literal string interpolation to concatenate more than one value
+    def __str__(self):
+        return f'{self.maintenance.maintenance_name} {self.log_miles}'

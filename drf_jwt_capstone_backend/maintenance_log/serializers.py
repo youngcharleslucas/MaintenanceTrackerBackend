@@ -12,3 +12,9 @@ class MaintenanceLogSerializer(serializers.ModelSerializer):
         # fields = ['id', 'maintenance', 'operator', 'vehicle', 'log_date', 'log_note', 'log_miles', 'complete', 'maintenance_id']
         fields = ['id', 'maintenance', 'operator', 'vehicle', 'log_date', 'log_note', 'log_miles', 'complete']
         depth = 1
+
+# I am unable to make a PUT request to create a Log using MaintenanceLogSerializer. I think it is because of depth=1. This creates a serializer that will be used just for creating new logs.
+class MaintenanceLogNoDepthSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = MaintenanceLog
+        fields = ['id', 'maintenance', 'operator', 'vehicle', 'log_date', 'log_note', 'log_miles', 'complete']

@@ -20,14 +20,14 @@ def get_all_maintenance_log (request):
     serializer = MaintenanceLogSerializer(maintenance_log, many=True)
     return Response(serializer.data)
 
-# get just the MaintenanceItem information for the maintenance log
-# @api_view(['GET'])
-# @permission_classes([AllowAny])
-# def get_maintenance_for_log (request):
-# # It will get the MaintenanceItem object that has a value matching the id of 1 in the db table maintenancelog(created as maintenance_log but SQL shortens it) under the field maintenance
-#     maintenance_log = MaintenanceItem.objects.filter(maintenancelog__maintenance__id=1)
-#     serializer = MaintenanceItemSerializer(maintenance_log, many=True)
-#     return Response(serializer.data)
+# GET all maintenance logs that are incomplete, for alerts on garage page
+@api_view(['GET'])
+@permission_classes([IsAuthenticated])
+def get_all_maintenance_log_incomplete (request):
+    all_maintenance_logs = MaintenanceLog.objects.all()
+    incomplete_maintenance_logs = all_maintenance_logs.exclude(complete = True)
+    serializer = MaintenanceLogSerializer(incomplete_maintenance_logs, many=True)
+    return Response(serializer.data)
 
 # get the maintenance logs for vehicle id
 @api_view(['GET'])
@@ -55,14 +55,6 @@ def get_maintenance_log (request, id):
     return Response(serializer.data)
 
 # Get all maintenance logs that are not complete for vehicle id. These will be the alerts. The log miles for when the maintenance was performed sets the start for when the maintenance will be due next.
-# @api_view(['GET'])
-# @permission_classes([IsAuthenticated])
-# def get_incomplete_logs (request, id):
-#     vehicle_logs = MaintenanceLog.objects.filter(vehicle__id=id)
-#     incomplete_logs = vehicle_logs.filter(complete = False)
-#     serializer = MaintenanceLogSerializer(incomplete_logs, many=True)
-#     return Response(serializer.data)
-
 @api_view(['GET'])
 @permission_classes([IsAuthenticated])
 def get_incomplete_logs (request, id):

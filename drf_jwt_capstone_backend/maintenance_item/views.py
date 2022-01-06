@@ -23,7 +23,6 @@ def get_all_maintenance_items(request):
 @permission_classes([IsAuthenticated])
 def get_vehicle_maintenance_items(request, id):
     vehicle = Vehicle.objects.get(id=id)
-    # serializer = VehicleSerializer(vehicle)
     maintenance_item = MaintenanceItem.objects.filter(vehicle_type__id=vehicle.vehicle_type_id)
     serializer = MaintenanceItemSerializer(maintenance_item, many=True)
     return Response (serializer.data)

@@ -11,5 +11,5 @@ from django.contrib.auth.models import AbstractUser
 
 
 class User(AbstractUser):
-    middle_name = models.CharField(max_length=20)
-    role = models.CharField(max_length=20)
+    middle_name = models.CharField(max_length=20, null=True, blank=True)
+    
